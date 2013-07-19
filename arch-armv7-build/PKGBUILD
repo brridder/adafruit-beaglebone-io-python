@@ -1,0 +1,30 @@
+buildarch=4
+
+pkgname=adafruit-beaglebone-io-python
+pkgver=691efb8
+pkgver() {
+  cd "${srcdir}/${pkgname}"
+  git describe --always | sed 's|-|.|g'
+}
+pkgrel=1
+pkgdesc="A Python library for Arduino-style hardware IO support on the TI BeagleBone"
+arch=('armv7h')
+url="https://github.com/brridder/adafruit-beaglebone-io-python.git"
+license=('Apache')
+depends=('python2')
+makedepends=('git')
+source=("git+https://github.com/brridder/adafruit-beaglebone-io-python.git")
+#git@github.com:adafruit/adafruit-beaglebone-io-python.git")
+md5sums=('SKIP')
+
+build() {
+  cd "${srcdir}/${pkgname}"
+
+  python2 setup.py build
+}
+
+package() {
+  cd "${srcdir}/${pkgname}"
+
+  python2 setup.py install --root=${pkgdir}
+}
